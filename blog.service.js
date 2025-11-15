@@ -132,6 +132,7 @@ this.getArticleText=id=>{
 	return readFileAsync(file,"utf-8");
 }
 this.executeBlogArticleCode=async(article)=>{
+	// inspired by L3P3/rtjscomp.
 	let id,rawArticleText;
 	id=article.id;
 	if(article.articleText) rawArticleText=article.articleText;
@@ -322,7 +323,7 @@ this.visitorAdd=({
 	browser, // user_agent
 })=>{
 	if(!this.existArticle(articleId)) throw new Error("visitorAdd: articleId not exists: "+articleId);
-	//if(username==="lff"||bot) return; // to reduce visitors ;)
+	if(username==="lff"||bot) return; // to reduce visitors ;)
 	const now=Date.now();
 	const visitorObject=[now,articleId,username,ip,browser];
 

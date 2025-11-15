@@ -1,15 +1,15 @@
 <?
 const fs=require("fs");
 const blog=service_require("web/blog/blog");
-const [id,file]=input.browserLocationAppended.split("/").map(unescape);
-
+const {id,file}=input;
+console.log(id,file);
 if(!id||!file) throw 400;
 
 const article=blog.getArticle(Number(id));
 if(!article) throw 400;
 if(!article.files.includes(file)) throw 404;
 const file_type=file.split(".").pop().toLowerCase();
-response.setHeader('Content-Type',file_type_mimes[(file_type in file_type_mimes)?file_type:'txt']);
+response.setHeader('Content-Type',"image/jpeg");
 
 const path="data/blog/"+article.folder+"/"+file;
 //log("streming file: "+path);
@@ -22,7 +22,7 @@ await new Promise(r=>{
 	stream.on("end",()=>{
 		response.end();
 		r();
-	})
-})
+	});
+});
 
 ?>

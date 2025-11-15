@@ -6,13 +6,13 @@
 
 	const blog=service_require("web/blog/blog");
 	const account=service_require_try("server/account/account.new");
-
+	log(input.folder);
 	const permissions={
-		// set default permissions if account service offline or user not logined
+		// set default permissions if account service offline or user not logged in.
 		editor: false,
-		post: false,
-		overwriteArticle: false,
 		editSaved: false,
+		overwriteArticle: false,
+		post: false,
 	};
 	let user=null;
 	account:{
@@ -28,7 +28,7 @@
 
 	const article=(()=>{
 		if(input.i) return blog.getArticle(Number(input.i));
-		else if(input.browserLocationAppended||input.f) return blog.getArticleByFolder(input.browserLocationAppended||input.f);
+		else if(input.folder||input.f) return blog.getArticleByFolder(input.folder||input.f);
 		else return null;
 	})();
 
@@ -73,8 +73,9 @@
 <?
 	if(article===undefined){
 ?>	<h1>Blog-Artikel exestiert nicht!</h1>
-	<p>Der Artikel wurde nicht gefunden Tuht mir leid :(</p>
+	<p>Der Artikel wurde nicht gefunden Tut mir leid :(</p>
 	<p>Du kannst aber zur <a href=/blog>Blog-Artikel-Übersicht</a> zurück.</p>
+	<p>Hast du einen Fehler oder Bug gefunden dann <a target=_blank href=//github.com/LFF5644/site-blog/issues/new>Melde</a> mir ihn gern.</p>
 <?
 	}
 	else if(article){
